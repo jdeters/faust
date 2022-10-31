@@ -24,7 +24,7 @@ class ExtendClass(oldCode: Defn.Class, newCode: Init = const.NullInit, context: 
       case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends $template"
         if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
           val newTemplate: Template = applyCode(template).asInstanceOf[Template]
-          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends ${newTemplate}"
+          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
         }
       case _ => super.apply(tree)
      }
@@ -41,7 +41,7 @@ class ExtendClass(oldCode: Defn.Class, newCode: Init = const.NullInit, context: 
             //build a new template with the new init that we want
             val newTemplate = template"{ ..$stats } with ..${inits ++ Seq(newCode)} { $self => ..$bodyStats }"
 
-            q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends $newTemplate"
+            q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $newTemplate"
           }
         case _ => super.apply(tree)
       }

@@ -1,65 +1,44 @@
 {
   "nodes":[
     {
-      "name":"System Events"
-    },
-    {
-      "name":"Instruction Events"
-    },
-    {
       "name":"Base System"
     },
     {
-      "name":"Microarchitecture Events"
+      "name":"SimpleConfig"
     },
     {
-      "name":"Counter System"
+      "name":"ICacheBufferBookeeping"
     },
     {
-      "name":"Accum Event"
+      "name":"ICacheMiddleAllocate"
     },
     {
-      "name":"Stats Counters"
+      "name":"DCacheBufferBookeeping"
     },
     {
-      "name":"Direct Counters"
-    },
-    {
-      "name":"PC Counters"
+      "name":"InvalidOnWrite"
     }
   ],
   "edges":[
     {
-      "n1":"Microarchitecture Events",
-      "n2":"Counter System"
+      "n1": "SimpleConfig",
+      "n2": "Base System"
     },
     {
-      "n1":"Instruction Events",
-      "n2":"Counter System"
+      "n1":"ICacheBufferBookeeping",
+      "n2":"SimpleConfig"
     },
     {
-      "n1":"Counter System",
+      "n1":"ICacheMiddleAllocate",
       "n2":"Base System"
     },
     {
-      "n1":"System Events",
-      "n2":"Counter System"
+      "n1":"DCacheBufferBookeeping",
+      "n2":"SimpleConfig"
     },
     {
-      "n1":"Accum Event",
-      "n2":"Counter System"
-    },
-    {
-      "n1":"Stats Counters"
-      "n2":"Counter System"
-    },
-    {
-      "n1":"Direct Counters"
-      "n2":"Counter System"
-    },
-    {
-      "n1":"PC Counters"
-      "n2":"Counter System"
+      "n1":"InvalidOnWrite",
+      "n2":"Base System"
     }
   ]
 }

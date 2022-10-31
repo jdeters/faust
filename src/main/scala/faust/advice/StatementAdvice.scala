@@ -12,11 +12,11 @@ abstract class StatementAdvice(oldCode: Stat, newCode: Tree, context: Defn.Class
   protected def advise = new Transformer {
     override def apply(tree: Tree): Tree = {
       tree match {
-      case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends $template"
+      case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $template"
         //if we've found the context OR we don't care about context, apply the code
         if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
           val newTemplate: Template = applyCode(template).asInstanceOf[Template]
-          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends ${newTemplate}"
+          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
         }
       case _ => super.apply(tree)
      }

@@ -73,6 +73,16 @@ local.properties
 .settings/
 .loadpath
 
+#metals
+.metals
+metals.sbt
+
+#vscode
+.vscode
+
+#bloop
+.bloop
+
 # Eclipse Core
 .project
 

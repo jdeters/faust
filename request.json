@@ -1,10 +1,13 @@
 {
   "nodes":[
     {
-      "name":"Instruction Events"
+      "name":"ICacheBufferBookeeping"
     },
     {
-      "name":"Direct Counters"
+      "name":"DCacheBufferBookeeping"
+    },
+    {
+      "name":"InvalidOnWrite"
     }
   ]
 }

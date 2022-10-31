@@ -3,15 +3,15 @@ package faust
 import scala.meta._
 import scala.meta.contrib._
 
-class ExtendInit(oldCode: Init, newCode: Stat = q"source()", context: Defn.Class = const.NullClass)(implicit feature: Feature)
+class ExtendInitwithStat(oldCode: Init, newCode: Stat = q"source()", context: Defn.Class = const.NullClass)(implicit feature: Feature)
   extends Advice(newCode, context) {
 
   def in(newContext: Defn.Class): Advice = {
-    new ExtendInit(oldCode, newCode, newContext)
+    new ExtendInitwithStat(oldCode, newCode, newContext)
   }
 
   def insert(newNewCode: Tree): Advice = {
-    new ExtendInit(oldCode, newNewCode.asInstanceOf[Stat], context)
+    new ExtendInitwithStat(oldCode, newNewCode.asInstanceOf[Stat], context)
   }
 
   def advise = new Transformer {
@@ -21,7 +21,7 @@ class ExtendInit(oldCode: Init, newCode: Stat = q"source()", context: Defn.Class
         //if we've found the context OR we don't care about context, apply the code
         if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
           val newTemplate: Template = applyCode(template).asInstanceOf[Template]
-          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends ${newTemplate}"
+          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
         }
       case _ => super.apply(tree)
      }

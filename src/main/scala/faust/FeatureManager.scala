@@ -85,6 +85,11 @@ object FeatureManager {
         case "Microarchitecture Events" => new MicroEventsFeature()
         case "System Events" => new SystemEventsFeature()
         case "Base System" => new BaseSystemFeature()
+        case "SimpleConfig" => new SimpleConfig()
+        case "ICacheBufferBookeeping" => new ICacheBufferBookeeping()
+        case "ICacheMiddleAllocate" => new ICacheMiddleAllocate()
+        case "DCacheBufferBookeeping" => new DCacheBufferBookeeping()
+        case "InvalidOnWrite" => new InvalidOnWrite()
       }
     }
   }
