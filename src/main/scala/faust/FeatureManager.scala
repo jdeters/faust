@@ -90,6 +90,8 @@ object FeatureManager {
         case "ICacheMiddleAllocate" => new ICacheMiddleAllocate()
         case "DCacheBufferBookeeping" => new DCacheBufferBookeeping()
         case "InvalidOnWrite" => new InvalidOnWrite()
+        case "DCacheMiddleAllocate" => new DCacheMiddleAllocate()
+        case "MiddleUpdate" => new MiddleUpdate()
       }
     }
   }

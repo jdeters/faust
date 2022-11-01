@@ -3,6 +3,6 @@ package faust
 import scala.meta._
 import scala.meta.contrib._
 
-class SimpleConfig extends Feature {
-  after (q"val core = Module(new Core(coreParams))") insert (q"val simpleConfig = CacheConfig(nWays = cacheParams.nWays, nSets = 1, blockBytes = cacheParams.blockBytes)") register
+class ICacheBufferBookeeping extends Feature {
+  extendWithInit (init"InstructionCache(usedParams, nastiParams, coreParams.xlen)") insert (init"HasBufferBookeeping") in (q"class Tile") register
 }
