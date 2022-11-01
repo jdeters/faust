@@ -8,13 +8,13 @@ package object const {
   val NullInit = init"__NotAClass"
 }
 
-abstract class Advice(newCode: Tree, context: Defn.Class)
+abstract class Advice(newCode: Tree, context: Defn)
   (implicit feature: Feature) {
 
   //Outward facing interface
 
   //the subclass must tell us what to do with a new context
-  def in(newConext: Defn.Class): Advice
+  def in(newConext: Defn): Advice
 
   //the subclass must tell us how to handle new code to insert
   def insert(newNewCode: Tree): Advice

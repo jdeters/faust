@@ -6,8 +6,8 @@ import scala.meta.contrib._
 class ExtendInitwithStat(oldCode: Init, newCode: Stat = q"source()", context: Defn.Class = const.NullClass)(implicit feature: Feature)
   extends Advice(newCode, context) {
 
-  def in(newContext: Defn.Class): Advice = {
-    new ExtendInitwithStat(oldCode, newCode, newContext)
+  def in(newContext: Defn): Advice = {
+    new ExtendInitwithStat(oldCode, newCode, newContext.asInstanceOf[Defn.Class])
   }
 
   def insert(newNewCode: Tree): Advice = {

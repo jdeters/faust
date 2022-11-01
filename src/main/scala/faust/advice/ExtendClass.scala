@@ -6,8 +6,8 @@ import scala.meta.contrib._
 class ExtendClass(oldCode: Defn.Class, newCode: Init = const.NullInit, context: Defn.Class = const.NullClass)
   (implicit feature: Feature) extends Advice(newCode, context) {
 
-  def in(newContext: Defn.Class): Advice = {
-    new ExtendClass(oldCode, newCode, newContext)
+  def in(newContext: Defn): Advice = {
+    new ExtendClass(oldCode, newCode, newContext.asInstanceOf[Defn.Class])
   }
 
   def insert(newNewCode: Tree): Advice = {

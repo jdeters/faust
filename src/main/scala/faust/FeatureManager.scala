@@ -92,6 +92,7 @@ object FeatureManager {
         case "InvalidOnWrite" => new InvalidOnWrite()
         case "DCacheMiddleAllocate" => new DCacheMiddleAllocate()
         case "MiddleUpdate" => new MiddleUpdate()
+        case "WriteBackNFA" => new WriteBackNFA()
       }
     }
   }

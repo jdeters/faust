@@ -23,6 +23,9 @@
     },
     {
       "name":"MiddleUpdate"
+    },
+    {
+      "name":"WriteBackNFA"
     }
   ],
   "edges":[
@@ -52,6 +55,10 @@
     },
     {
       "n1":"MiddleUpdate",
+      "n2":"Base System"
+    },
+    {
+      "n1":"WriteBackNFA",
       "n2":"Base System"
     }
   ]

@@ -3,7 +3,7 @@ package faust
 import scala.meta._
 import scala.meta.contrib._
 
-abstract class StatementAdvice(oldCode: Stat, newCode: Tree, context: Defn.Class)
+abstract class StatementAdvice(oldCode: Stat, newCode: Tree, context: Defn)
   (implicit feature: Feature) extends Advice(newCode, context) {
 
   //Helper functions for advice application
@@ -11,15 +11,29 @@ abstract class StatementAdvice(oldCode: Stat, newCode: Tree, context: Defn.Class
   //finds the correct context
   protected def advise = new Transformer {
     override def apply(tree: Tree): Tree = {
-      tree match {
-      case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $template"
-        //if we've found the context OR we don't care about context, apply the code
-        if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
-          val newTemplate: Template = applyCode(template).asInstanceOf[Template]
-          q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
+      context match {
+        case c: Defn.Class => {
+          tree match {
+            case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $template"
+            //if we've found the context OR we don't care about context, apply the code
+            if (tname.value == c.name.value || c.name.value == const.NullClass.name.value) => {
+              val newTemplate: Template = applyCode(template).asInstanceOf[Template]
+              q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
+            }
+            case _ => super.apply(tree)
+          }
         }
-      case _ => super.apply(tree)
-     }
+        case c: Defn.Trait => {
+          tree match {
+            case q"..$mods trait $tname[..$tparams] $template" 
+            if(tname.value == c.name.value || c.name.value == const.NullClass.name.value) => {
+              val newTemplate: Template = applyCode(template).asInstanceOf[Template]
+              q"..$mods trait $tname[..$tparams] $newTemplate"
+            }
+            case _ => super.apply(tree)
+          }
+        }
+      }
     }
   }
 

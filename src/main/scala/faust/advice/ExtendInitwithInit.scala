@@ -6,8 +6,8 @@ import scala.meta.contrib._
 class ExtendInitwithInit(oldCode: Init, newCode: Init = const.NullInit, context: Defn.Class = const.NullClass)(implicit feature: Feature)
   extends Advice(newCode, context) {
 
-  def in(newContext: Defn.Class): Advice = {
-    new ExtendInitwithInit(oldCode, newCode, newContext)
+  def in(newContext: Defn): Advice = {
+    new ExtendInitwithInit(oldCode, newCode, newContext.asInstanceOf[Defn.Class])
   }
 
   def insert(newNewCode: Tree): Advice = {
@@ -20,7 +20,6 @@ class ExtendInitwithInit(oldCode: Init, newCode: Init = const.NullInit, context:
       case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $template"
         //if we've found the context OR we don't care about context, apply the code
         if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
-          println("match found")
           val newTemplate: Template = applyCode(template).asInstanceOf[Template]
           q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) ${newTemplate}"
         }
