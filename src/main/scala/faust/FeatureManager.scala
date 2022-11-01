@@ -93,6 +93,7 @@ object FeatureManager {
         case "DCacheMiddleAllocate" => new DCacheMiddleAllocate()
         case "MiddleUpdate" => new MiddleUpdate()
         case "WriteBackNFA" => new WriteBackNFA()
+        case "HasDirtyAccounting" => new HasDirtyAccounting()
       }
     }
   }

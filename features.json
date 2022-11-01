@@ -26,6 +26,9 @@
     },
     {
       "name":"WriteBackNFA"
+    },
+    {
+      "name":"HasDirtyAccounting"
     }
   ],
   "edges":[
@@ -59,6 +62,10 @@
     },
     {
       "n1":"WriteBackNFA",
+      "n2":"Base System"
+    },
+    {
+      "n1":"HasDirtyAccounting",
       "n2":"Base System"
     }
   ]
