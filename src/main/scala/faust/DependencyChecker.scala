@@ -38,7 +38,7 @@ object DependencyChecker {
   private val requestGraph = Graph.fromJson[System, DiEdge](requestImport,systemDescriptor)
 
   //not very functional, but object oriented
-  private val systemFeatureSet = scala.collection.mutable.Set[SystemFeature]()
+  private val systemFeatureSet = scala.collection.mutable.LinkedHashSet[SystemFeature]()
 
   def apply(): List[String] = {
     systemFeatureSet.clear()
@@ -49,7 +49,7 @@ object DependencyChecker {
     for (f <- systemFeatureSet.toList) yield f.name
   }
 
-  private def getDependencies(child: SystemFeature): scala.collection.mutable.Set[SystemFeature] = {
+  private def getDependencies(child: SystemFeature): scala.collection.mutable.LinkedHashSet[SystemFeature] = {
     //only go to the trouble of finding the dependencies if we haven't already seen them
     if(child != root && !systemFeatureSet.contains(child)) {
         //find our parents

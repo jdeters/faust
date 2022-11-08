@@ -96,6 +96,7 @@ object FeatureManager {
         case "HasDirtyAccounting" => new HasDirtyAccounting()
         case "DirtyUpdate" => new DirtyUpdate()
         case "WriteFromMiddle" => new WriteFromMiddle()
+        case "Dusty" => new Dusty()
       }
     }
   }

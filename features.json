@@ -35,6 +35,9 @@
     }, 
     {
       "name":"WriteFromMiddle"
+    }, 
+    {
+      "name":"Dusty"
     }
   ],
   "edges":[
@@ -81,6 +84,10 @@
     {
       "n1":"WriteFromMiddle",
       "n2":"DirtyUpdate"
+    },
+    {
+      "n1":"Dusty",
+      "n2":"WriteFromMiddle"
     }
   ]
 }
