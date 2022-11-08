@@ -29,6 +29,12 @@
     },
     {
       "name":"HasDirtyAccounting"
+    },
+    {
+      "name":"DirtyUpdate"
+    }, 
+    {
+      "name":"WriteFromMiddle"
     }
   ],
   "edges":[
@@ -58,15 +64,23 @@
     },
     {
       "n1":"MiddleUpdate",
-      "n2":"Base System"
+      "n2":"DCacheMiddleAllocate"
     },
     {
       "n1":"WriteBackNFA",
-      "n2":"Base System"
+      "n2":"MiddleUpdate"
     },
     {
       "n1":"HasDirtyAccounting",
-      "n2":"Base System"
+      "n2":"WriteBackNFA"
+    },
+    {
+      "n1":"DirtyUpdate",
+      "n2":"HasDirtyAccounting"
+    },
+    {
+      "n1":"WriteFromMiddle",
+      "n2":"DirtyUpdate"
     }
   ]
 }

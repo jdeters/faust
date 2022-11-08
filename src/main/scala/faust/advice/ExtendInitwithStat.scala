@@ -17,7 +17,7 @@ class ExtendInitwithStat(oldCode: Init, newCode: Stat = q"source()", context: De
   def advise = new Transformer {
     override def apply(tree: Tree): Tree = {
       tree match {
-      case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) extends $template"
+      case q"..$mods class $tname[..$tparams] ..$ctorMods (...$paramss) $template"
         //if we've found the context OR we don't care about context, apply the code
         if (tname.value == context.name.value || context.name.value == const.NullClass.name.value) => {
           val newTemplate: Template = applyCode(template).asInstanceOf[Template]
@@ -30,10 +30,13 @@ class ExtendInitwithStat(oldCode: Init, newCode: Stat = q"source()", context: De
 
   def applyCode = new Transformer {
     override def apply(tree: Tree): Tree = {
-      val q"{ ..$insertStats }" = newCode
       tree match {
-        case q"new $init { ..$stats }" if (init.isEqual(oldCode)) => q"new $init { ..${insertStats ++ stats} }"
-        case q"new $init" if (init.isEqual(oldCode)) => q"new $init { ..$insertStats }"
+        case q"new { ..$stat } with ..$inits { $self => ..$stats }" => {
+          val contains = inits.foldLeft(false)((isInside, currentInnit) => currentInnit.isEqual(oldCode) || isInside)
+          if(contains) q"new { ..$stat } with ..$inits { $self => ..${stats ++ List(newCode)} }"
+          else q"new { ..$stat } with ..$inits { $self => ..$stats }"
+        }
+        case q"new $init" if (init.isEqual(oldCode)) => q"new $init { ..${List(newCode)} }"
         case _ => super.apply(tree)
       }
     }

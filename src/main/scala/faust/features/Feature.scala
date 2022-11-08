@@ -12,6 +12,7 @@ abstract class Feature (){
   protected def extendWithStat(oldCode: Init) = new ExtendInitwithStat(oldCode)
   protected def extendWithInit(oldCode: Init) = new ExtendInitwithInit(oldCode)
   protected def extend(oldCode: Defn.Class) = new ExtendClass(oldCode)
+  protected def extend(oldCode: Defn.Trait) = new ExtendTrait(oldCode)
 
   def apply(tree: Tree): Tree = {
     adviceList.foldLeft(tree){ (newTree, transform) => { transform(newTree) } }

@@ -94,6 +94,8 @@ object FeatureManager {
         case "MiddleUpdate" => new MiddleUpdate()
         case "WriteBackNFA" => new WriteBackNFA()
         case "HasDirtyAccounting" => new HasDirtyAccounting()
+        case "DirtyUpdate" => new DirtyUpdate()
+        case "WriteFromMiddle" => new WriteFromMiddle()
       }
     }
   }
