@@ -29,19 +29,18 @@ object DependencyChecker {
   private val root = SystemFeature("Base System")
 
   private val systemFeatureFilename = "features.json"
-  private val requestFilename = "request.json"
 
   private val systemFeatureImport = Source.fromFile(systemFeatureFilename).getLines.mkString
   private val dependencyGraph = Graph.fromJson[System, DiEdge](systemFeatureImport,systemDescriptor)
 
-  private val requestImport = Source.fromFile(requestFilename).getLines.mkString
-  private val requestGraph = Graph.fromJson[System, DiEdge](requestImport,systemDescriptor)
-
   //not very functional, but object oriented
   private val systemFeatureSet = scala.collection.mutable.LinkedHashSet[SystemFeature]()
 
-  def apply(): List[String] = {
+  def apply(requestFilename: String = "request.json"): List[String] = {
+    val requestImport = Source.fromFile(requestFilename).getLines.mkString
+    val requestGraph = Graph.fromJson[System, DiEdge](requestImport,systemDescriptor)
     systemFeatureSet.clear()
+
     for(f <- requestGraph.nodes) {
       systemFeatureSet ++= getDependencies(f.toOuter.asInstanceOf[SystemFeature])
     }

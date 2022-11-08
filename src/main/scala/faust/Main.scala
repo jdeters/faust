@@ -14,7 +14,8 @@ object FeatureMachine {
       if(args.length != 0) {
         if(args(0) == "apply") {
           println("Applying features in " + dir)
-          FeatureManager(dir, DependencyChecker())
+          if(args.length > 1) FeatureManager(dir, DependencyChecker(args(1))) 
+          else FeatureManager(dir, DependencyChecker())
         } else if (args(0) == "undo"){
           println("Undo features in " + dir)
           FeatureManager.undo(dir)
