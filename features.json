@@ -4,7 +4,10 @@
       "name":"Base System"
     },
     {
-      "name":"SimpleConfig"
+      "name":"ICacheSimpleConfig"
+    },
+    {
+      "name":"DCacheSimpleConfig"
     },
     {
       "name":"ICacheBufferBookeeping"
@@ -42,12 +45,16 @@
   ],
   "edges":[
     {
-      "n1": "SimpleConfig",
+      "n1":"ICacheSimpleConfig",
+      "n2":"Base System"
+    },
+    {
+      "n1": "DCacheSimpleConfig",
       "n2": "Base System"
     },
     {
       "n1":"ICacheBufferBookeeping",
-      "n2":"SimpleConfig"
+      "n2":"ICacheSimpleConfig"
     },
     {
       "n1":"ICacheMiddleAllocate",
@@ -55,7 +62,7 @@
     },
     {
       "n1":"DCacheBufferBookeeping",
-      "n2":"SimpleConfig"
+      "n2":"DCacheSimpleConfig"
     },
     {
       "n1":"InvalidOnWrite",
